@@ -108,30 +108,20 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
         yM = (1 * Mom) * sin(Ang)
         xM = (1 * Mom) * cos(Ang)
     }
-    if (xM > 1) {
-        xM = 1
+
+    # Set length/direction of the moment
+    if (abs(xM) < 1e-04) {
+        xM <- ifelse(xM == 0, 0.001, sign(xM) * 0.001)
+    } else if (abs(xM) > 1) {
+        xM <- sign(xM) * 0.001
     }
-    if (xM < -1) {
-        xM = -1
+
+    if (abs(yM) < 1e-04) {
+        yM <- ifelse(yM == 0, 0.001, sign(yM) * 0.001)
+    } else if (abs(yM) > 1) {
+        yM <- sign(yM) * 0.001
     }
-    if (yM > 1) {
-        yM = 1
-    }
-    if (yM < -1) {
-        yM = -1
-    }
-    if (yM >= 0 && yM < 1e-04) {
-        yM = 0.001
-    }
-    if (yM < 0 && yM > -1e-04) {
-        yM = -0.001
-    }
-    if (xM >= 0 && xM < 1e-04) {
-        xM = 0.001
-    }
-    if (xM < 0 && xM > -1e-04) {
-        xM = -0.001
-    }
+
     # if ((xM != 0.001) && (xM != -0.001) && (yM != 0.001) && (yM != -0.001)){
     arrows(0, 0, xM, yM, cex = 2, lwd = 2)
     par(new = T)
