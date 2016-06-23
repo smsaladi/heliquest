@@ -14,7 +14,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
                                Mom = 0.046225448735, FlFH = 0, ANGT = 100,
                                NBMIN = 18, NBM2 = 36, NBMAX = 54,
                                circle_size = 3, tail = circle_size, ...) {
-    par(?options = c(1, 1), pty = "s")
+    par(mfrow = c(1, 1), pty = "s")
     par(mar = c(4, 4, 3, 3))
 
     # residue color lookup table
@@ -214,4 +214,3 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     # if ((xM != 0.001) && (xM != -0.001) && (yM != 0.001) && (yM != -0.001)){ par(new=T) arrows(0,0,xM,yM, cex=2, lwd=2) }
     par(new = F)
 }
-
