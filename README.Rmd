@@ -23,7 +23,9 @@ devtools::install_github("saladi/heliquest")
 
 # Examples
 
-```{r}
+```{r fig.height=6}
+library(heliquest)
+
 draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
 
 draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
