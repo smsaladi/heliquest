@@ -1,0 +1,32 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+---
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(
+  fig.retina=2,
+  fig.width=6,
+  fig.height=4
+)
+```
+
+# Helical wheel plots in R
+
+## Installation
+
+```{r, eval=FALSE}
+# Until this package is on CRAN:
+devtools::install_github("saladi/heliquest")
+```
+
+# Examples
+
+```{r}
+draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
+
+draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
+                   FactC = 0.05, FONT1 = 3, FONT2 = 5, CEXFT = 1, CEXTEXT = 0.8, Ang = 5.58074390482, Mom = 0.122081976943,
+                   FlFH = 0, ANGT = 100, NBMIN = 18, NBM2 = 36, NBMAX = 54)
+```

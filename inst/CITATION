@@ -1,0 +1,41 @@
+citHeader("To cite heliquest in publications use:")
+
+citEntry(entry = "Article",
+  title        = "HELIQUEST: a web server to screen sequences with specific alpha-helical properties.",
+  author       = personList(as.person("Romain Gautier"),
+                   as.person("Dominique Douguet"),
+                   as.person("Bruno Antonny"),
+                   as.person("Guillaume Drin")),
+  journal      = "Bioinformatics",
+  year         = "2008",
+  volume       = "24",
+  number       = "18",
+  pages        = "2101--2102",
+  url          = "http://bioinformatics.oxfordjournals.org/content/24/18/2101",
+
+  textVersion  =
+  paste("Gautier R, Douguet D, Antonny B, Drin G (2008).",
+        "HELIQUEST: a web server to screen sequences with specific alpha-helical properties.",
+        "Bioinformatics, 24(18), 2101-2102.",
+        "URL http://bioinformatics.oxfordjournals.org/content/24/18/2101")
+)
+
+citEntry(entry = "Article",
+  title        = "HELIQUEST: a web server to screen sequences with specific alpha-helical properties.",
+  author       = personList(as.person("Romain Gautier"),
+                   as.person("Dominique Douguet"),
+                   as.person("Bruno Antonny"),
+                   as.person("Guillaume Drin")),
+  journal      = "Bioinformatics",
+  year         = "2008",
+  volume       = "24",
+  number       = "18",
+  pages        = "2101--2102",
+  url          = "http://bioinformatics.oxfordjournals.org/content/24/18/2101",
+
+  textVersion  =
+  paste("Gautier R, Douguet D, Antonny B, Drin G (2008).",
+        "HELIQUEST: a web server to screen sequences with specific alpha-helical properties.",
+        "Bioinformatics, 24(18), 2101-2102.",
+        "URL http://bioinformatics.oxfordjournals.org/content/24/18/2101")
+)
