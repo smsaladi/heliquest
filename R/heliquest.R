@@ -27,12 +27,16 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     # colors
     seq <- colorlookup[data]
 
+    # color non-residue data as black
+    seq[is.na(seq)] <- 4
+
     # circle size
     tail <- rep(circle_size, length(data))
 
-    # FOR several helices VM limite a 3 tours
     color <- c("yellow", "blue", "red", "gray", "purple", "pink", "green", "lightblue")
     colorTxt <- c("black", "white", "white", "black", "white", "black", "white", "black")
+
+    # For long helicies, limit to 3 turns
 
     # texte de base modif xlim et ylim a cause des cercles passage de 1.5 a 1.8
     if (length(data) <= NBMIN) {
@@ -55,7 +59,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     j = 0
     k = 0
     l = 0
-    # trace du premier tour d'helice
+    # Outline for the first round of helicies
     for (i in 1:length(data)) {
         xsv = x
         ysv = y
@@ -64,6 +68,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
         } else {
             Flag = 0
             # flag pour recaler les positions suivant face hydrophobe
+            # flag to reset next hydrophobic face positions
             if (FlFH == 0) {
                 newang = 270 - (Ang * (180/pi))
                 x = cos((ang + newang) * (pi/180))
@@ -78,16 +83,24 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
             if ((FlFH == 0) & (i == 1)) {
                 xsv = x
                 ysv = y
-                plot(c(xsv, x), c(ysv, y), type = "l", xlim = Xlimit, xlab = "", ylab = "", xaxt = "n", yaxt = "n", ylim = Ylimit, cex = 0.7, lwd = 0.8)
+                plot(c(xsv, x), c(ysv, y),
+                     type = "l", xlim = Xlimit, xlab = "",
+                     ylab = "", ylim = Ylimit,
+                     xaxt = "n", yaxt = "n",
+                     cex = 0.7, lwd = 0.8)
                 par(new = T)
             } else {
-                plot(c(xsv, x), c(ysv, y), type = "l", xlim = Xlimit, xlab = "", ylab = "", xaxt = "n", yaxt = "n", ylim = Ylimit, cex = 0.7, lwd = 0.8)
+                plot(c(xsv, x), c(ysv, y),
+                     type = "l", xlim = Xlimit, xlab = "",
+                     ylab = "", ylim = Ylimit,
+                     xaxt = "n", yaxt = "n",
+                     cex = 0.7, lwd = 0.8)
                 par(new = T)
             }
         }
         ang = ang - ANGT
     }
-    # plot du moment
+    # hydrophobic moment arrow
     if (FlFH == 0) {
         yM = (1 * Mom) * sin(-pi/2)
         xM = (1 * Mom) * cos(-pi/2)
@@ -181,30 +194,58 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
             }
         }
         if (i == 1) {
-            symbols(x, y, circles = FactC * tail[i], fg = "black", bg = color[seq[i]], xlim = Xlimit, ylim = Ylimit, xlab = "", ylab = "", xaxt = "n",
+            symbols(x, y,
+                    circles = FactC * tail[i],
+                    fg = "black", bg = color[seq[i]],
+                    xlim = Xlimit, ylim = Ylimit,
+                    xlab = "", ylab = "", xaxt = "n",
                 yaxt = "n", inches = FALSE)
             par(new = T)
-            plot(x, y, xlim = Xlimit, ylim = Ylimit, xlab = "", ylab = "", type = "p", xaxt = "n", yaxt = "n", pch = data[i], cex = tail[i], lwd = 2,
-                col = colorTxt[seq[i]])
+            plot(x, y,
+                 xlim = Xlimit, ylim = Ylimit,
+                 xlab = "", ylab = "",
+                 type = "p",
+                 xaxt = "n", yaxt = "n",
+                 pch = data[i], cex = tail[i], lwd = 2,
+                 col = colorTxt[seq[i]])
             par(new = T)
             Delt = (FactC * tail[i])/5
             # modif pour mettre N et C a la place de 1 et fin
-            plot(x + (sqrt(2)/2) * (FactC * tail[i]) + Delt, y - (sqrt(2)/2) * (FactC * tail[i]) - Delt, xlim = Xlimit, ylim = Ylimit, xlab = "",
-                ylab = "", type = "p", xaxt = "n", yaxt = "n", pch = "N", col = "red", cex = 2, lwd = 1)
+            plot(x + (sqrt(2)/2) * (FactC * tail[i]) + Delt,
+                 y - (sqrt(2)/2) * (FactC * tail[i]) - Delt,
+                 xlim = Xlimit, ylim = Ylimit,
+                 xlab = "", ylab = "",
+                 type = "p",
+                 xaxt = "n", yaxt = "n",
+                 pch = "N", col = "red",
+                 cex = 2, lwd = 1)
         } else {
             if (i <= NBMAX) {
-                symbols(x, y, circles = FactC * tail[i], fg = "black", bg = color[seq[i]], xlim = Xlimit, ylim = Ylimit, xlab = "", ylab = "", xaxt = "n",
-                  yaxt = "n", inches = FALSE)
+                symbols(x, y,
+                        circles = FactC * tail[i],
+                        fg = "black", bg = color[seq[i]],
+                        xlim = Xlimit, ylim = Ylimit,
+                        xlab = "", ylab = "", xaxt = "n",
+                        yaxt = "n", inches = FALSE)
                 par(new = T)
-                plot(x, y, xlim = Xlimit, ylim = Ylimit, xlab = "", ylab = "", type = "p", xaxt = "n", yaxt = "n", pch = data[i], cex = tail[i], lwd = 1,
+                plot(x, y,
+                     xlim = Xlimit, ylim = Ylimit,
+                     xlab = "", ylab = "",
+                     type = "p",
+                     xaxt = "n", yaxt = "n",
+                     pch = data[i], cex = tail[i], lwd = 1,
                   col = colorTxt[seq[i]])
             }
         }
         # modif pour mettre N et C a la place de 1 et fin
         if ((i == length(data)) | (i == NBMAX)) {
             par(new = T)
-            plot(x + (sqrt(2)/2) * (FactC * tail[i]) + Delt, y - (sqrt(2)/2) * (FactC * tail[i]) - Delt, xlim = Xlimit, ylim = Ylimit, xlab = "",
-                ylab = "", type = "p", xaxt = "n", yaxt = "n", pch = "C", col = "red", cex = 2, lwd = 1)
+            plot(x + (sqrt(2)/2) * (FactC * tail[i]) + Delt,
+                 y - (sqrt(2)/2) * (FactC * tail[i]) - Delt,
+                 xlim = Xlimit, ylim = Ylimit, xlab = "",
+                 ylab = "", type = "p",
+                 xaxt = "n", yaxt = "n",
+                 pch = "C", col = "red", cex = 2, lwd = 1)
         }
         if (i != length(data)) {
             par(new = T)
