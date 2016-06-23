@@ -16,14 +16,14 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-```{r, eval=FALSE}
+```{r install, eval=FALSE}
 # Until this package is on CRAN:
 devtools::install_github("saladi/heliquest")
 ```
 
 # Examples
 
-```{r fig.height=6}
+```{r examples, fig.height=6}
 library(heliquest)
 
 draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")

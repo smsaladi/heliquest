@@ -19,7 +19,7 @@ library(heliquest)
 draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
 ```
 
-<img src="README_files/figure-html/unnamed-chunk-2-1.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/examples-1.png" title="" alt="" width="576" />
 
 ```r
 draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
@@ -30,4 +30,4 @@ draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
                    NBMIN = 18, NBM2 = 36, NBMAX = 54)
 ```
 
-<img src="README_files/figure-html/unnamed-chunk-2-2.png" title="" alt="" width="576" />
+<img src="README_files/figure-html/examples-2.png" title="" alt="" width="576" />
