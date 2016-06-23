@@ -43,49 +43,49 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
 
     # texte de base modif xlim et ylim a cause des cercles passage de 1.5 a 1.8
     if (length(data) <= NBMIN) {
-        Xlimit = c(-1.2, 1.2)
-        Ylimit = c(-1.2, 1.2)
+        Xlimit <- c(-1.2, 1.2)
+        Ylimit <- c(-1.2, 1.2)
     } else {
         if ((length(data) > NBMIN) & (length(data) <= NBM2)) {
-            Xlimit = c(-1.5, 1.5)
-            Ylimit = c(-1.5, 1.5)
+            Xlimit <- c(-1.5, 1.5)
+            Ylimit <- c(-1.5, 1.5)
         } else {
-            Xlimit = c(-1.73, 1.73)
-            Ylimit = c(-1.73, 1.73)
+            Xlimit <- c(-1.73, 1.73)
+            Ylimit <- c(-1.73, 1.73)
         }
     }
 
-    x = 1
-    y = 0
-    ang = 0
-    Flag = 0
-    j = 0
-    k = 0
-    l = 0
+    x <- 1
+    y <- 0
+    ang <- 0
+    Flag <- 0
+    j <- 0
+    k <- 0
+    l <- 0
     # Outline for the first round of helicies
     for (i in 1:length(data)) {
-        xsv = x
-        ysv = y
+        xsv <- x
+        ysv <- y
         if (i > NBMIN) {
-            Flag = 1
+            Flag <- 1
         } else {
-            Flag = 0
+            Flag <- 0
             # flag pour recaler les positions suivant face hydrophobe
             # flag to reset next hydrophobic face positions
             if (FlFH == 0) {
-                newang = 270 - (Ang * (180/pi))
-                x = cos((ang + newang) * (pi/180))
-                y = sin((ang + newang) * (pi/180))
+                newang <- 270 - (Ang * (180/pi))
+                x <- cos((ang + newang) * (pi/180))
+                y <- sin((ang + newang) * (pi/180))
             } else {
-                x = cos(ang * (pi/180))
-                y = sin(ang * (pi/180))
+                x <- cos(ang * (pi/180))
+                y <- sin(ang * (pi/180))
             }
         }
         if (Flag == 0) {
             # pb de trait au debut quand recalage face
             if ((FlFH == 0) & (i == 1)) {
-                xsv = x
-                ysv = y
+                xsv <- x
+                ysv <- y
                 plot(c(xsv, x), c(ysv, y),
                      type = "l", xlim = Xlimit, xlab = "",
                      ylab = "", ylim = Ylimit,
@@ -101,15 +101,15 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
                 par(new = T)
             }
         }
-        ang = ang - ANGT
+        ang <- ang - ANGT
     }
     # hydrophobic moment arrow
     if (FlFH == 0) {
-        yM = (1 * Mom) * sin(-pi/2)
-        xM = (1 * Mom) * cos(-pi/2)
+        yM <- (1 * Mom) * sin(-pi/2)
+        xM <- (1 * Mom) * cos(-pi/2)
     } else {
-        yM = (1 * Mom) * sin(Ang)
-        xM = (1 * Mom) * cos(Ang)
+        yM <- (1 * Mom) * sin(Ang)
+        xM <- (1 * Mom) * cos(Ang)
     }
 
     # Set length/direction of the moment
@@ -131,58 +131,58 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     # }
 
     # trace des residus reinitialisation param
-    x = 1
-    y = 0
-    ang = 0
-    j = 0
-    k = 0
-    l = 0
-    m = 0
-    n = 0
+    x <- 1
+    y <- 0
+    ang <- 0
+    j <- 0
+    k <- 0
+    l <- 0
+    m <- 0
+    n <- 0
     for (i in 1:length(data)) {
-        xsv = x
-        ysv = y
+        xsv <- x
+        ysv <- y
         if ((i > NBMIN) & (i <= NBM2)) {
             if (FlFH == 0) {
-                newang = 270 - (Ang * (180/pi))
-                x = cos((ang + newang) * (pi/180))
-                y = sin((ang + newang) * (pi/180))
+                newang <- 270 - (Ang * (180/pi))
+                x <- cos((ang + newang) * (pi/180))
+                y <- sin((ang + newang) * (pi/180))
             } else {
-                x = cos(ang * (pi/180))
-                y = sin(ang * (pi/180))
+                x <- cos(ang * (pi/180))
+                y <- sin(ang * (pi/180))
             }
-            # x=x*1.27
-            x = x * (1 + (FactC * tail[i - NBMIN] + FactC * tail[i]))
-            # y=y*1.27
-            y = y * (1 + (FactC * tail[i - NBMIN] + FactC * tail[i]))
+            # x<-x*1.27
+            x <- x * (1 + (FactC * tail[i - NBMIN] + FactC * tail[i]))
+            # y<-y*1.27
+            y <- y * (1 + (FactC * tail[i - NBMIN] + FactC * tail[i]))
             if ((i == NBM2) & (NBM2 == 20)) {
-                ang = 0 - ANGT
+                ang <- 0 - ANGT
             }
         } else {
             if (i > NBM2) {
                 if (FlFH == 0) {
-                  newang = 270 - (Ang * (180/pi))
-                  x = cos((ang + newang) * (pi/180))
-                  y = sin((ang + newang) * (pi/180))
+                  newang <- 270 - (Ang * (180/pi))
+                  x <- cos((ang + newang) * (pi/180))
+                  y <- sin((ang + newang) * (pi/180))
                 } else {
-                  x = cos(ang * (pi/180))
-                  y = sin(ang * (pi/180))
+                  x <- cos(ang * (pi/180))
+                  y <- sin(ang * (pi/180))
                 }
-                # x=x*1.47
-                x = x * (1 + (FactC * tail[i - NBM2] + FactC * tail[i - NBMIN] + FactC * tail[i - NBMIN] + FactC * tail[i]))
-                # y=y*1.47
-                y = y * (1 + (FactC * tail[i - NBM2] + FactC * tail[i - NBMIN] + FactC * tail[i - NBMIN] + FactC * tail[i]))
+                # x<-x*1.47
+                x <- x * (1 + (FactC * tail[i - NBM2] + FactC * tail[i - NBMIN] + FactC * tail[i - NBMIN] + FactC * tail[i]))
+                # y<-y*1.47
+                y <- y * (1 + (FactC * tail[i - NBM2] + FactC * tail[i - NBMIN] + FactC * tail[i - NBMIN] + FactC * tail[i]))
             } else {
                 if (FlFH == 0) {
-                  newang = 270 - (Ang * (180/pi))
-                  x = cos((ang + newang) * (pi/180))
-                  y = sin((ang + newang) * (pi/180))
+                  newang <- 270 - (Ang * (180/pi))
+                  x <- cos((ang + newang) * (pi/180))
+                  y <- sin((ang + newang) * (pi/180))
                 } else {
-                  x = cos(ang * (pi/180))
-                  y = sin(ang * (pi/180))
+                  x <- cos(ang * (pi/180))
+                  y <- sin(ang * (pi/180))
                 }
                 if ((i == NBMIN) & (NBMIN == 10)) {
-                  ang = 0
+                  ang <- 0
                 }
             }
         }
@@ -202,7 +202,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
                  pch = data[i], cex = tail[i], lwd = 2,
                  col = colorTxt[seq[i]])
             par(new = T)
-            Delt = (FactC * tail[i])/5
+            Delt <- (FactC * tail[i])/5
             # modif pour mettre N et C a la place de 1 et fin
             plot(x + (sqrt(2)/2) * (FactC * tail[i]) + Delt,
                  y - (sqrt(2)/2) * (FactC * tail[i]) - Delt,
@@ -243,7 +243,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
         if (i != length(data)) {
             par(new = T)
         }
-        ang = ang - ANGT
+        ang <- ang - ANGT
     }
     # if ((xM != 0.001) && (xM != -0.001) && (yM != 0.001) && (yM != -0.001)){ par(new=T) arrows(0,0,xM,yM, cex=2, lwd=2) }
     par(new = F)
