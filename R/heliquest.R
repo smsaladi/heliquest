@@ -14,6 +14,9 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
                                Mom = 0.046225448735, FlFH = 0, ANGT = 100,
                                NBMIN = 18, NBM2 = 36, NBMAX = 54,
                                circle_size = 3, tail = circle_size, ...) {
+    old_par <- par(no.readonly = TRUE)
+    on.exit(par(old_par))
+
     par(mfrow = c(1, 1), pty = "s")
     par(mar = c(4, 4, 3, 3))
 
@@ -27,7 +30,7 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     # colors
     seq <- colorlookup[data]
 
-    # color non-residue data as black
+    # color non-residue data as grey
     seq[is.na(seq)] <- 4
 
     # circle size
