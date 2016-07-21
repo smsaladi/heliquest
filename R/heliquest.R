@@ -9,9 +9,10 @@
 #' draw_helical_wheel('ACDEFGHIKLMNPQRSTVWY')
 
 #' @export
-draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
-                               CEXFT = 1, CEXTEXT = 0.8, Ang = 3.83972435439,
-                               Mom = 0.046225448735, FlFH = 0, ANGT = 100,
+draw_helical_wheel <- function(helix_seq, Ang, Mom,
+                               helix_type = "alpha", window_size = "FULL",
+                               FactC = 0.05, FONT1 = 3, FONT2 = 5,
+                               CEXFT = 1, CEXTEXT = 0.8, FlFH = 0, ANGT = 100,
                                NBMIN = 18, NBM2 = 36, NBMAX = 54,
                                circle_size = 3, tail = circle_size, ...) {
     old_par <- par(no.readonly = TRUE)
@@ -38,6 +39,15 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
 
     color <- c("yellow", "blue", "red", "gray", "purple", "pink", "green", "lightblue")
     colorTxt <- c("black", "white", "white", "black", "white", "black", "white", "black")
+
+    # If angle or moment are not specified, use the online server to get them
+    if(missing(Ang) | missing(Mom)) {
+        web_params <- get_params(helix_seq,
+                                 helix_type = helix_type,
+                                 window_size = window_size)
+        if(missing(Ang)) Ang <- web_params[1, 'Val_angleM']
+        if(missing(Mom)) Mom <- web_params[1, 'Hyd.Moment']
+    }
 
     # For long helicies, limit to 3 turns
 
@@ -247,4 +257,46 @@ draw_helical_wheel <- function(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
     }
     # if ((xM != 0.001) && (xM != -0.001) && (yM != 0.001) && (yM != -0.001)){ par(new=T) arrows(0,0,xM,yM, cex=2, lwd=2) }
     par(new = F)
+}
+
+get_params <- function(sequence,
+                       helix_type = c("alpha", "3-10", "3-11", "pi"),
+                       window_size = c("FULL", "1_TURN", 11, 12, 14, 16, 18, 20, 22, 25, 30, 36)) {
+    require(httr)
+
+    # Interpret options to pass to web server
+    FHTYPE <- setNames(c("0", 1, 2, 3),
+                       c("alpha", "3-10", "3-11", "pi"))[[match.arg(helix_type)]]
+    Taille <- match.arg(window_size)
+
+    # Calculate helical wheel parameters using Heliquest website
+    # clef - Not certain what this is for (using value on webpage)
+
+    # PPLOT and FHPLOT specify graphical options:
+    # PPLOT - Whether the residue symbol is drawn proportional to its volume
+    # FHPLOT - Whether to rotate the helix to vertically align the <µH> vector
+    heliquest_request <- POST(
+        url = "http://heliquest.ipmc.cnrs.fr/cgi-bin/ComputParamsV3.py",
+        body = list(clef = "1",
+                    FHTYPE = FHTYPE,
+                    Taille = Taille,
+                    sequence = sequence,
+                    PPLOT = "1",
+                    FHPLOT = "0"))
+
+    # Find the URL for the data text file
+    page_text <- content(heliquest_request, "text")
+
+    data_url <- regmatches(page_text,
+                           regexpr('<a href=\\"(.*)\\s*">\\s*Data.txt<\\/a>',
+                                   page_text,
+                                   perl = TRUE))
+
+    data_url <- regmatches(data_url,
+                           regexpr('tmp.*\\/.*\\/Data.txt',
+                                   data_url,
+                                   perl = TRUE))
+
+    # Read and return data file
+    read.delim(paste0("http://heliquest.ipmc.cnrs.fr/", data_url))
 }
