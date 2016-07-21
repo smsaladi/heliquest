@@ -2,15 +2,17 @@
 #'
 #' This function allows you to draw a helical wheel diagram
 #' given the sequence and various optional parameters
-#' @param helix_seq Sequence draw the helical wheel plot for
+#' @param helix_seq The sequence for which to draw a helical wheel plot
+#' @param Ang The angle by which to rotate the raw plot by
+#' @param Mom The hydrophobic moment of the helix
+#' @param helix_type The type of helix
+#' @param window_size The window over which to calculate Ang and Mom
 #' @keywords helical-wheel bioinformatics
-#' @export
 #' @examples
 #' draw_helical_wheel('ACDEFGHIKLMNPQRSTVWY')
-
 #' @export
 draw_helical_wheel <- function(helix_seq, Ang, Mom,
-                               helix_type = "alpha", window_size = "FULL",
+                               helix_type = "alpha",
                                FactC = 0.05, FONT1 = 3, FONT2 = 5,
                                CEXFT = 1, CEXTEXT = 0.8, FlFH = 0, ANGT = 100,
                                NBMIN = 18, NBM2 = 36, NBMAX = 54,
@@ -43,8 +45,7 @@ draw_helical_wheel <- function(helix_seq, Ang, Mom,
     # If angle or moment are not specified, use the online server to get them
     if(missing(Ang) | missing(Mom)) {
         web_params <- get_params(helix_seq,
-                                 helix_type = helix_type,
-                                 window_size = window_size)
+                                 helix_type = helix_type)
         if(missing(Ang)) Ang <- web_params[1, 'Val_angleM']
         if(missing(Mom)) Mom <- web_params[1, 'Hyd.Moment']
     }
