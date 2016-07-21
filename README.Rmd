@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ```{r install, eval=FALSE}
 # Until this package is on CRAN:
-devtools::install_github("saladi/heliquest")
+devtools::install_github("smsaladi/heliquest")
 ```
 
 # Examples
@@ -31,7 +31,14 @@ draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
 draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
                    FactC = 0.05, FONT1 = 3, FONT2 = 5,
                    CEXFT = 1, CEXTEXT = 0.8,
-                   Ang = 5.58074390482, Mom = 0.122081976943,
+                   FlFH = 0, ANGT = 100,
+                   NBMIN = 18, NBM2 = 36, NBMAX = 54)
+
+# Custom Angle and Hydrophobicity
+draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
+                   FactC = 0.05, FONT1 = 3, FONT2 = 5,
+                   CEXFT = 1, CEXTEXT = 0.8,
+                   Ang = 30, Mom = 1,
                    FlFH = 0, ANGT = 100,
                    NBMIN = 18, NBM2 = 36, NBMAX = 54)
 ```

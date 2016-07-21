@@ -4,13 +4,21 @@
 \alias{draw_helical_wheel}
 \title{Draw a helical wheel diagram}
 \usage{
-draw_helical_wheel(helix_seq, FactC = 0.05, FONT1 = 3, FONT2 = 5,
-  CEXFT = 1, CEXTEXT = 0.8, Ang = 3.83972435439, Mom = 0.046225448735,
-  FlFH = 0, ANGT = 100, NBMIN = 18, NBM2 = 36, NBMAX = 54,
-  circle_size = 3, tail = circle_size, ...)
+draw_helical_wheel(helix_seq, Ang, Mom, helix_type = "alpha", FactC = 0.05,
+  FONT1 = 3, FONT2 = 5, CEXFT = 1, CEXTEXT = 0.8, FlFH = 0,
+  ANGT = 100, NBMIN = 18, NBM2 = 36, NBMAX = 54, circle_size = 3,
+  tail = circle_size, ...)
 }
 \arguments{
-\item{helix_seq}{Sequence draw the helical wheel plot for}
+\item{helix_seq}{The sequence for which to draw a helical wheel plot}
+
+\item{Ang}{The angle by which to rotate the raw plot by}
+
+\item{Mom}{The hydrophobic moment of the helix}
+
+\item{helix_type}{The type of helix}
+
+\item{window_size}{The window over which to calculate Ang and Mom}
 }
 \description{
 This function allows you to draw a helical wheel diagram
