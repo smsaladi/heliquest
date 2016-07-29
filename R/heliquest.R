@@ -270,6 +270,16 @@ get_params <- function(sequence,
                        c("alpha", "3-10", "3-11", "pi"))[[match.arg(helix_type)]]
     Taille <- match.arg(window_size)
 
+    # For short segments, pad with AA to reach length required
+    if(nchar(sequence) < 9 ) {
+        warning("Sequence is less than 9 residues. Hydrophobic moment may not be a valid metric.")
+        repeats <- ceiling((9 - nchar(sequence))/4)
+        pre_post <- paste0(rep("AA", repeats), collapse = '')
+        adj_sequence <- paste0(pre_post, sequence, pre_post)
+    } else {
+        adj_sequence <- sequence
+    }
+
     # Calculate helical wheel parameters using Heliquest website
     # clef - Not certain what this is for (using value on webpage)
 
@@ -281,7 +291,7 @@ get_params <- function(sequence,
         body = list(clef = "1",
                     FHTYPE = FHTYPE,
                     Taille = Taille,
-                    sequence = sequence,
+                    sequence = adj_sequence,
                     PPLOT = "1",
                     FHPLOT = "0"))
 
@@ -299,5 +309,10 @@ get_params <- function(sequence,
                                    perl = TRUE))
 
     # Read and return data file
-    read.delim(paste0("http://heliquest.ipmc.cnrs.fr/", data_url))
+    params_df <- read.delim(paste0("http://heliquest.ipmc.cnrs.fr/", data_url))
+    if (nchar(sequence) < 9) {
+        repeats <- ceiling((9 - nchar(sequence))/4)
+        params_df$Val_angleM <- params_df$Val_angleM + 20*(repeats + 1)
+    }
+    params_df
 }
