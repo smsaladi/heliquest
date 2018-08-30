@@ -17,6 +17,8 @@ draw_helical_wheel <- function(helix_seq, Ang, Mom,
                                CEXFT = 1, CEXTEXT = 0.8, FlFH = 0, ANGT = 100,
                                NBMIN = 18, NBM2 = 36, NBMAX = 54,
                                circle_size = 3, tail = circle_size, ...) {
+
+
     old_par <- par(no.readonly = TRUE)
     on.exit(par(old_par))
 
@@ -44,6 +46,7 @@ draw_helical_wheel <- function(helix_seq, Ang, Mom,
 
     # If angle or moment are not specified, use the online server to get them
     if(missing(Ang) | missing(Mom)) {
+        # if sequence, is too short, handle differently
         web_params <- get_params(helix_seq,
                                  helix_type = helix_type)
         if(missing(Ang)) Ang <- web_params[1, 'Val_angleM']
@@ -273,9 +276,7 @@ get_params <- function(sequence,
     # For short segments, pad with AA to reach length required
     if(nchar(sequence) < 9 ) {
         warning("Sequence is less than 9 residues. Hydrophobic moment may not be a valid metric.")
-        repeats <- ceiling((9 - nchar(sequence))/4)
-        pre_post <- paste0(rep("AA", repeats), collapse = '')
-        adj_sequence <- paste0(pre_post, sequence, pre_post)
+        adj_sequence <- paste0("AAAA", sequence, "AAAA")
     } else {
         adj_sequence <- sequence
     }
@@ -311,8 +312,7 @@ get_params <- function(sequence,
     # Read and return data file
     params_df <- read.delim(paste0("http://heliquest.ipmc.cnrs.fr/", data_url))
     if (nchar(sequence) < 9) {
-        repeats <- ceiling((9 - nchar(sequence))/4)
-        params_df$Val_angleM <- params_df$Val_angleM + 20*(repeats + 1)
+        params_df$Val_angleM <- params_df$Val_angleM + 20 * 5
     }
     params_df
 }
