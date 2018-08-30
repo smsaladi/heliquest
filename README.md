@@ -1,3 +1,9 @@
+---
+output:
+  html_document:
+    keep_md: yes
+    toc: yes
+---
 
 
 # Helical wheel plots in R
@@ -16,7 +22,7 @@ devtools::install_github("smsaladi/heliquest")
 ```r
 library(heliquest)
 
-draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
+draw_helical_wheel("LGGLMNN")
 ```
 
 ```
@@ -24,7 +30,8 @@ draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
 ```
 
 ```
-## Warning: package 'httr' was built under R version 3.2.5
+## Warning in get_params(helix_seq, helix_type = helix_type): Sequence is less
+## than 9 residues. Hydrophobic moment may not be a valid metric.
 ```
 
 <img src="README_files/figure-html/examples-1.png" width="576" />

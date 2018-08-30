@@ -1,6 +1,6 @@
 ---
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
     toc: yes
 ---
@@ -26,7 +26,7 @@ devtools::install_github("smsaladi/heliquest")
 ```{r examples, fig.height=6}
 library(heliquest)
 
-draw_helical_wheel("KPKPKPKPKPKPKPKPKPKPKPKPKPKPK")
+draw_helical_wheel("LGGLMNN")
 
 draw_helical_wheel("ACDEFGHIKLMNPQRSTVWY",
                    FactC = 0.05, FONT1 = 3, FONT2 = 5,
